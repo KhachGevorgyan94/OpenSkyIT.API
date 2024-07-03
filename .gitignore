@@ -1,0 +1,64 @@
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+node_modules
+
+# Yarn 2
+.yarn/*
+!.yarn/cache
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions
+
+# testing
+coverage
+
+# next.js
+.next/
+out/
+build
+dev
+
+
+# misc
+.DS_Store
+*.pem
+
+# debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# local env files
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# turbo
+.turbo
+
+# Terraform
+.terraform
+*.tfstate
+*.tfstate.backup
+
+*.tfvars
+
+apps/solana-saga/Squads/node_modules
+apps/solana-saga/Squads/.env
+apps/web/.idea/
+apps/web/.vscode/
+apps/web/.env
+
+# packages
+packages/fuse-wallet/lib
+
+.idea/
+apps/chrome-extension/dev.zip
+.vscode/settings.json
+.vercel
+.env*.local
