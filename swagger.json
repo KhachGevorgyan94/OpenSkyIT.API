@@ -1,0 +1,3298 @@
+{
+  "swagger" : "2.0",
+  "info"    : {
+    "version"     : "1.0.0",
+    "title"       : "Sovats API",
+    "description" : ""
+  },
+  "schemes": [
+		"http"
+	],
+	"host": "10.10.1.120:666",
+  "tags": [
+    { "name": "Activity" },
+    { "name": "Address" },
+    { "name": "Admin" },
+    { "name": "Attribute" },
+    { "name": "Auth" },
+    { "name": "Branch" },
+    { "name": "Basket" },
+    { "name": "Balance" },
+    { "name": "Category" },
+    { "name": "Promotion" },
+    { "name": "Company" },
+    { "name": "Device" },
+    { "name": "Driver" },
+    { "name": "Images" },
+    { "name": "MenuItem" },
+    { "name": "Notification" },
+    { "name": "Product" },
+    { "name": "PromoCode" },
+    { "name": "Subcategory" },
+    { "name": "Search" },
+    { "name": "Settings" },
+    { "name": "Support" },
+    { "name": "Order" },
+    { "name": "User" },
+    { "name": "Helper" },
+    { "name": "Conversation" }
+  ],
+  "paths": {
+
+    "/api/Activity/WithPaging": {
+      "get": {
+        "tags"       : ["Notification"],
+        "consumes"   : "application/json",
+        "parameters" : [
+          { "$ref": "#/parameters/Authorization" },
+          { "in":"query", "name":"count", "type":"number", "required": true },
+          { "in":"query", "name":"page", "type":"number", "required": true }
+        ],
+        "responses" : { "200": { "description" : "Successfully response object" }}
+      }
+    },
+    "/api/Activity/${orderId}": {
+      "get": {
+        "tags"       : ["Notification"],
+        "consumes"   : "application/json",
+        "parameters" : [
+          { "$ref": "#/parameters/Authorization" },
+          { "in": "path", "name": "orderId", "type": "string", "required": true }
+        ],
+        "responses" : { "200": { "description" : "Successfully response object" }}
+      }
+    },
+
+    "/api/auth/Token": {
+      "post": {
+        "tags"       : ["Auth"],
+        "consumes"   : "application/json",
+        "produces"   : "application/json",
+        "parameters" : [{
+          "in"     : "body",
+          "name"   : "Body",
+          "schema" : {
+            "type"       : "object",
+            "required"   : true,
+            "properties" : {
+              "email"    : { "type": "string", "required": true },
+              "password" : { "type": "string", "required": true }
+            }
+          }
+        }],
+        "responses" : { "200": { "description" : "Successfully response object" }}
+      }
+    },
+    "/api/auth/Token/ByVC": {
+      "post": {
+        "tags"       : ["Auth"],
+        "consumes"   : "application/json",
+        "produces"   : "application/json",
+        "parameters" : [{
+          "in"     : "body",
+          "name"   : "Body",
+          "schema" : {
+            "type"       : "object",
+            "required"   : true,
+            "properties" : {
+              "phone"            : { "type": "string", "required": true },
+              "verificationCode" : { "type": "string", "required": true }
+            }
+          }
+        }],
+        "responses" : { "200": { "description" : "Successfully response object" }}
+      }
+    },
+    "/api/auth/Token/Admin": {
+      "post": {
+        "tags"       : ["Auth"],
+        "consumes"   : "application/json",
+        "produces"   : "application/json",
+        "parameters" : [{
+          "in"     : "body",
+          "name"   : "Body",
+          "schema" : {
+            "type"       : "object",
+            "required"   : true,
+            "properties" : {
+              "email"    : { "type": "string", "required": true },
+              "password" : { "type": "string", "required": true }
+            }
+          }
+        }],
+        "responses" : { "200": { "description" : "Successfully response object" }}
+      }
+    },
+    "/api/auth/Token/Driver": {
+      "post": {
+        "tags"       : ["Auth"],
+        "consumes"   : "application/json",
+        "produces"   : "application/json",
+        "parameters" : [{
+          "in"     : "body",
+          "name"   : "Body",
+          "schema" : {
+            "type"       : "object",
+            "required"   : true,
+            "properties" : {
+              "email"    : { "type": "string", "required": true },
+              "password" : { "type": "string", "required": true }
+            }
+          }
+        }],
+        "responses" : { "200": { "description" : "Successfully response object" }}
+      }
+    },
+    "/api/auth/SendForgotKey": {
+      "post": {
+        "tags"       : ["Auth"],
+        "consumes"   : "application/json",
+        "produces"   : "application/json",
+        "parameters" : [{
+          "in"     : "body",
+          "name"   : "Body",
+          "schema" : {
+            "type"       : "object",
+            "required"   : true,
+            "properties" : {
+              "email": {
+                "type"     : "string",
+                "required" : true
+              }
+            }
+          }
+        }],
+        "responses" : { "200": { "description" : "Successfully response object" }}
+      }
+    },
+    "/api/auth/CheckForgotKey": {
+      "post": {
+        "tags"       : ["Auth"],
+        "consumes"   : "application/json",
+        "produces"   : "application/json",
+        "parameters" : [{
+          "in"     : "body",
+          "name"   : "Body",
+          "schema" : {
+            "type"       : "object",
+            "required"   : true,
+            "properties" : {
+              "email": {
+                "type"     : "string",
+                "required" : true
+              },
+              "forgotKey": {
+                "type"     : "string",
+                "required" : true
+              }
+            }
+          }
+        }],
+        "responses" : { "200": { "description" : "Successfully response object" }}
+      }
+    },
+    "/api/auth/ResetPassword": {
+      "post": {
+        "tags"       : ["Auth"],
+        "consumes"   : "application/json",
+        "produces"   : "application/json",
+        "parameters" : [{
+          "in"     : "body",
+          "name"   : "Body",
+          "schema" : {
+            "type"       : "object",
+            "required"   : true,
+            "properties" : {
+              "email": {
+                "type"     : "string",
+                "required" : true
+              },
+              "forgotKey": {
+                "type"     : "string",
+                "required" : true
+              },
+              "newPassword": {
+                "type"     : "string",
+                "required" : true
+              },
+              "confirmPassword": {
+                "type"     : "string",
+                "required" : true
+              }
+            }
+          }
+        }],
+        "responses" : { "200": { "description" : "Successfully response object" }}
+      }
+    },
+    "/api/auth/Logout": {
+      "post": {
+        "tags"       : ["Auth"],
+        "consumes"   : "application/json",
+        "produces"   : "application/json",
+        "parameters" : [
+          { "$ref": "#/parameters/Authorization" },
+          {
+          "in"     : "body",
+          "name"   : "Body",
+          "schema" : {
+            "type"       : "object",
+            "required"   : true,
+            "properties" : {
+              "deviceId" : { "type": "string", "required": true }
+            }
+          }
+        }],
+        "responses" : { "200": { "description" : "Successfully response object" }}
+      }
+    },
+
+    "/api/User/RegisterVC": {
+      "get": {
+        "tags"       : ["User"],
+        "consumes"   : "application/json",
+        "produces"   : "application/json",
+        "parameters" : [
+          { "in":"query", "name":"phone", "type":"string", "required": true }
+        ],
+        "responses" : { "200": { "description" : "Successfully response object" }}
+      }
+    },
+
+    "/api/User/GetVC": {
+      "get": {
+        "tags"       : ["User"],
+        "consumes"   : "application/json",
+        "produces"   : "application/json",
+        "parameters" : [
+          { "in":"query", "name":"phone", "type":"string", "required": true }
+        ],
+        "responses" : { "200": { "description" : "Successfully response object" }}
+      }
+    },
+
+    "/api/User/V2/Edit": {
+      "put": {
+        "tags"       : ["User"],
+        "consumes"   : "application/json",
+        "produces"   : "application/json",
+        "parameters" : [
+          { "$ref": "#/parameters/Authorization" },
+          {
+          "in"     : "body",
+          "name"   : "Body",
+          "schema" : {
+            "type"       : "object",
+            "required"   : true,
+            "properties" : {
+              "firstName"        : { "type" : "string", "required" : false },
+              "lastName"         : { "type" : "string", "required" : false },
+              "email"            : { "type" : "string", "required" : false },
+              "phone"            : { "type" : "string", "required" : false },
+              "verificationCode" : { "type" : "string", "required" : false }
+            }
+          }
+        }],
+        "responses" : { "200": { "description" : "Successfully response object" }}
+      }
+    },
+
+    "/api/User": {
+      "post": {
+        "tags"       : ["User"],
+        "consumes"   : "application/json",
+        "produces"   : "application/json",
+        "parameters" : [
+          { "$ref": "#/parameters/Authorization" },
+          {
+          "in"     : "body",
+          "name"   : "Body",
+          "schema" : {
+            "type"       : "object",
+            "required"   : true,
+            "properties" : {
+              "firstName": {
+                "type"     : "string",
+                "required" : true
+              },
+              "lastName": {
+                "type"     : "string",
+                "required" : true
+              },
+              "email": {
+                "type"     : "string",
+                "required" : true
+              },
+              "phone": {
+                "type"     : "string",
+                "required" : true
+              },
+              "password": {
+                "type"     : "string",
+                "required" : true
+              },
+              "confirmPassword": {
+                "type"     : "string",
+                "required" : true
+              },
+              "verificationCode": {
+                "type"     : "string",
+                "required" : true
+              }
+            }
+          }
+        }],
+        "responses" : { "200": { "description" : "Successfully response object" }}
+      },
+      "get": {
+        "tags"       : ["User"],
+        "consumes"   : "application/json",
+        "produces"   : "application/json",
+        "parameters" : [{ "$ref": "#/parameters/Authorization" }],
+        "responses"  : { "200": { "description" : "Successfully response object" }}
+      },
+      "delete": {
+        "tags"       : ["User"],
+        "consumes"   : "application/json",
+        "produces"   : "application/json",
+        "parameters" : [{ "$ref": "#/parameters/Authorization" }],
+        "responses"  : { "200": { "description" : "Successfully response object" }}
+      },
+      "put": {
+        "tags"       : ["User"],
+        "consumes"   : "application/json",
+        "produces"   : "application/json",
+        "parameters" : [
+          { "$ref": "#/parameters/Authorization" },
+          {
+          "in"     : "body",
+          "name"   : "Body",
+          "schema" : {
+            "type"       : "object",
+            "required"   : true,
+            "properties" : {
+              "firstName": {
+                "type"     : "string",
+                "required" : false
+              },
+              "lastName": {
+                "type"     : "string",
+                "required" : false
+              },
+              "email": {
+                "type"     : "string",
+                "required" : false
+              },
+              "phone": {
+                "type"     : "string",
+                "required" : false
+              }
+            }
+          }
+        }],
+        "responses" : { "200": { "description" : "Successfully response object" }}
+      }
+    },
+    "/api/User/ChangePassword": {
+      "put": {
+        "tags"       : ["User"],
+        "consumes"   : "application/json",
+        "produces"   : "application/json",
+        "parameters" : [
+          { "$ref": "#/parameters/Authorization" },
+          {
+          "in"     : "body",
+          "name"   : "Body",
+          "schema" : {
+            "type"       : "object",
+            "required"   : true,
+            "properties" : {
+              "oldPassword": {
+                "type"     : "string",
+                "required" : true
+              },
+              "newPassword": {
+                "type"     : "string",
+                "required" : true
+              },
+              "newConfirmPassword": {
+                "type"     : "string",
+                "required" : true
+              }
+            }
+          }
+        }],
+        "responses" : { "200": { "description" : "Successfully response object" }}
+      }
+    },
+    "/api/User/Block": {
+      "put": {
+        "tags"       : ["User"],
+        "consumes"   : "application/json",
+        "produces"   : "application/json",
+        "parameters" : [
+          { "$ref": "#/parameters/Authorization" },
+          {
+          "in"     : "body",
+          "name"   : "Body",
+          "schema" : {
+            "type"       : "object",
+            "required"   : true,
+            "properties" : {
+              "id" : { "type": "string", "required": true }
+            }
+          }
+        }],
+        "responses" : { "200": { "description" : "Successfully response object" }}
+      }
+    },
+    "/api/User/Unblock": {
+      "put": {
+        "tags"       : ["User"],
+        "consumes"   : "application/json",
+        "produces"   : "application/json",
+        "parameters" : [
+          { "$ref": "#/parameters/Authorization" },
+          {
+          "in"     : "body",
+          "name"   : "Body",
+          "schema" : {
+            "type"       : "object",
+            "required"   : true,
+            "properties" : {
+              "id" : { "type": "string", "required": true }
+            }
+          }
+        }],
+        "responses" : { "200": { "description" : "Successfully response object" }}
+      }
+    },
+    "/api/User/GetListWithPaging": {
+      "post": {
+        "tags"       : ["User"],
+        "consumes"   : "application/json",
+        "produces"   : "application/json",
+        "parameters" : [
+          { "$ref": "#/parameters/Authorization" },
+          {
+            "in"     : "body",
+            "name"   : "Body",
+            "schema" : {
+              "type"       : "object",
+              "required"   : true,
+              "properties" : {
+                "count"                   : { "type": "number", "required": true },
+                "page"                    : { "type": "number", "required": true },
+                "firstName"               : { "type": "string" },
+                "lastName"                : { "type": "string" },
+                "email"                   : { "type": "string" },
+                "phone"                   : { "type": "string" },
+                "blocked"                 : { "type": "boolean" },
+                "canceledOrdersCountFrom" : { "type": "number" },
+                "canceledOrdersCountTo"   : { "type": "number" },
+                "finishedOrdersCountFrom" : { "type": "number" },
+                "finishedOrdersCountTo"   : { "type": "number" }
+              }
+            }
+          }
+        ],
+        "responses" : { "200": { "description" : "Successfully response object" }}
+      }
+    },
+    "/api/User/GetList": {
+      "post": {
+        "tags"       : ["User"],
+        "consumes"   : "application/json",
+        "produces"   : "application/json",
+        "parameters" : [
+          { "$ref": "#/parameters/Authorization" },
+          {
+            "in"     : "body",
+            "name"   : "Body",
+            "schema" : {
+              "type"       : "object",
+              "required"   : true,
+              "properties" : {
+                "firstName"               : { "type": "string" },
+                "lastName"                : { "type": "string" },
+                "email"                   : { "type": "string" },
+                "phone"                   : { "type": "string" },
+                "blocked"                 : { "type": "boolean" },
+                "canceledOrdersCountFrom" : { "type": "number" },
+                "canceledOrdersCountTo"   : { "type": "number" },
+                "finishedOrdersCountFrom" : { "type": "number" },
+                "finishedOrdersCountTo"   : { "type": "number" }
+              }
+            }
+          }
+        ],
+        "responses" : { "200": { "description" : "Successfully response object" }}
+      }
+    },
+
+    "/api/Driver": {
+      "get": {
+        "tags"       : ["Driver"],
+        "consumes"   : "application/json",
+        "produces"   : "application/json",
+        "parameters" : [{ "$ref": "#/parameters/Authorization" }],
+        "responses"  : { "200": { "description" : "Successfully response object" }}
+      }
+    },
+    "/api/Driver/Locations": {
+      "get": {
+        "tags"       : ["Driver"],
+        "consumes"   : "application/json",
+        "produces"   : "application/json",
+        "parameters" : [{ "$ref": "#/parameters/Authorization" }],
+        "responses"  : { "200": { "description" : "Successfully response object" }}
+      }
+    },
+    "/api/Driver/Edit": {
+      "put": {
+        "tags"       : ["Driver"],
+        "consumes"   : "application/json",
+        "produces"   : "application/json",
+        "parameters" : [
+          { "$ref": "#/parameters/Authorization" },
+          {
+          "in"     : "body",
+          "name"   : "Body",
+          "schema" : {
+            "type"       : "object",
+            "required"   : true,
+            "properties" : {
+              "firstName" : { "type": "string", "required": true },
+              "lastName"  : { "type": "string", "required": true },
+              "email"     : { "type": "string", "required": true },
+              "phone"     : { "type": "string", "required": true }
+            }
+          }
+        }],
+        "responses" : { "200": { "description" : "Successfully response object" }}
+      }
+    },
+    "/api/Driver/ChangeLocation": {
+      "put": {
+        "tags"       : ["Driver"],
+        "consumes"   : "application/json",
+        "produces"   : "application/json",
+        "parameters" : [
+          { "$ref": "#/parameters/Authorization" },
+          { "in":"query", "name":"latitude", "type":"number", "required": true },
+          { "in":"query", "name":"longitude", "type":"number", "required": true }
+        ],
+        "responses" : { "200": { "description" : "Successfully response object" }}
+      }
+    },
+    "/api/Driver/Edit/{id}": {
+      "put": {
+        "tags"       : ["Driver"],
+        "consumes"   : "application/json",
+        "produces"   : "application/json",
+        "parameters" : [
+          { "$ref": "#/parameters/Authorization" },
+          { "in": "path", "name": "id", "type": "string", "required": true },
+          {
+          "in"     : "body",
+          "name"   : "Body",
+          "schema" : {
+            "type"       : "object",
+            "required"   : true,
+            "properties" : {
+              "firstName" : { "type": "string", "required": true },
+              "lastName"  : { "type": "string", "required": true },
+              "email"     : { "type": "string", "required": true },
+              "vehicle"   : { "type": "number", "required": true },
+              "phone"     : { "type": "string", "required": true }
+            }
+          }
+        }],
+        "responses" : { "200": { "description" : "Successfully response object" }}
+      }
+    },
+    "/api/Driver/ChangePassword": {
+      "put": {
+        "tags"       : ["Driver"],
+        "consumes"   : "application/json",
+        "produces"   : "application/json",
+        "parameters" : [
+          { "$ref": "#/parameters/Authorization" },
+          {
+          "in"     : "body",
+          "name"   : "Body",
+          "schema" : {
+            "type"       : "object",
+            "required"   : true,
+            "properties" : {
+              "oldPassword"        : { "type": "string", "required": true },
+              "newPassword"        : { "type": "string", "required": true },
+              "newConfirmPassword" : { "type": "string", "required": true }
+            }
+          }
+        }],
+        "responses" : { "200": { "description" : "Successfully response object" }}
+      }
+    },
+    "/api/Driver/ChangePassword/{id}": {
+      "put": {
+        "tags"       : ["Driver"],
+        "consumes"   : "application/json",
+        "produces"   : "application/json",
+        "parameters" : [
+          { "$ref": "#/parameters/Authorization" },
+          { "in": "path", "name": "id", "type": "string", "required": true },
+          {
+            "in"     : "body",
+            "name"   : "Body",
+            "schema" : {
+              "type"       : "object",
+              "required"   : true,
+              "properties" : {
+                "password" : { "type": "string", "required": true }
+              }
+            }
+          }
+        ],
+        "responses" : { "200": { "description" : "Successfully response object" }}
+      }
+    },
+    "/api/Driver/Block": {
+      "put": {
+        "tags"       : ["Driver"],
+        "consumes"   : "application/json",
+        "produces"   : "application/json",
+        "parameters" : [
+          { "$ref": "#/parameters/Authorization" },
+          {
+          "in"     : "body",
+          "name"   : "Body",
+          "schema" : {
+            "type"       : "object",
+            "required"   : true,
+            "properties" : {
+              "id" : { "type": "string", "required": true }
+            }
+          }
+        }],
+        "responses" : { "200": { "description" : "Successfully response object" }}
+      }
+    },
+    "/api/Driver/Unblock": {
+      "put": {
+        "tags"       : ["Driver"],
+        "consumes"   : "application/json",
+        "produces"   : "application/json",
+        "parameters" : [
+          { "$ref": "#/parameters/Authorization" },
+          {
+          "in"     : "body",
+          "name"   : "Body",
+          "schema" : {
+            "type"       : "object",
+            "required"   : true,
+            "properties" : {
+              "id" : { "type": "string", "required": true }
+            }
+          }
+        }],
+        "responses" : { "200": { "description" : "Successfully response object" }}
+      }
+    },
+    "/api/Driver/AllWithPaging": {
+      "post": {
+        "tags"       : ["Driver"],
+        "consumes"   : "application/json",
+        "produces"   : "application/json",
+        "parameters" : [
+          { "$ref": "#/parameters/Authorization" },
+          {
+            "in"     : "body",
+            "name"   : "Body",
+            "schema" : {
+              "type"       : "object",
+              "required"   : true,
+              "properties" : {
+                "count"           : { "type": "number", "required": true },
+                "page"            : { "type": "number", "required": true },
+                "firstName"       : { "type": "string" },
+                "lastName"        : { "type": "string" },
+                "email"           : { "type": "string" },
+                "phone"           : { "type": "string" },
+                "blocked"         : { "type": "boolean" },
+                "balanceFrom"     : { "type": "number" },
+                "balanceTo"       : { "type": "number" }
+              }
+            }
+          }
+        ],
+        "responses" : { "200": { "description" : "Successfully response object" }}
+      }
+    },
+    "/api/Driver/All": {
+      "post": {
+        "tags"       : ["Driver"],
+        "consumes"   : "application/json",
+        "produces"   : "application/json",
+        "parameters" : [
+          { "$ref": "#/parameters/Authorization" },
+          {
+            "in"     : "body",
+            "name"   : "Body",
+            "schema" : {
+              "type"       : "object",
+              "required"   : true,
+              "properties" : {
+                "firstName"       : { "type": "string" },
+                "lastName"        : { "type": "string" },
+                "email"           : { "type": "string" },
+                "phone"           : { "type": "string" },
+                "blocked"         : { "type": "boolean" },
+                "balanceFrom"     : { "type": "number" },
+                "balanceTo"       : { "type": "number" }
+              }
+            }
+          }
+        ],
+        "responses" : { "200": { "description" : "Successfully response object" }}
+      }
+    },
+    "/api/Driver/Create": {
+      "post": {
+        "tags"       : ["Driver"],
+        "consumes"   : "application/json",
+        "produces"   : "application/json",
+        "parameters" : [
+          { "$ref": "#/parameters/Authorization" },
+          {
+          "in"     : "body",
+          "name"   : "Body",
+          "schema" : {
+            "type"       : "object",
+            "required"   : true,
+            "properties" : {
+              "firstName" : { "type": "string", "required": true },
+              "lastName"  : { "type": "string", "required": true },
+              "email"     : { "type": "string", "required": true },
+              "phone"     : { "type": "string", "required": true },
+              "vehicle"   : { "type": "number", "required": true },
+              "password"  : { "type": "string", "required": true }
+            }
+          }
+        }],
+        "responses" : { "200": { "description" : "Successfully response object" }}
+      }
+    },
+    "/api/Driver/Delete/{id}": {
+      "delete": {
+        "tags"       : ["Driver"],
+        "consumes"   : "application/json",
+        "produces"   : "application/json",
+        "parameters" : [
+          { "$ref": "#/parameters/Authorization" },
+          { "in": "path", "name": "id", "type": "string", "required": true }
+        ],
+        "responses" : { "200": { "description" : "Successfully response object" }}
+      }
+    },
+
+
+
+
+    "/api/Category": {
+      "get": {
+        "tags"      : ["Category"],
+        "consumes"  : "application/json",
+        "produces"  : "application/json",
+        "responses" : { "200": { "description" : "Successfully response object" }}
+      }
+    },
+    "/api/Category/Home": {
+      "get": {
+        "tags"      : ["Category"],
+        "consumes"  : "application/json",
+        "produces"  : "application/json",
+        "responses" : { "200": { "description" : "Successfully response object" }}
+      }
+    },
+    "/api/Category/Details/{id}": {
+      "get": {
+        "tags"       : ["Category"],
+        "consumes"   : "application/json",
+        "produces"   : "application/json",
+        "parameters" : [
+          { "in":"path", "name":"id", "type":"string", "required": true }
+        ],
+        "responses" : { "200": { "description" : "Successfully response object" }}
+      }
+    },
+    "/api/Category/Create": {
+      "post": {
+        "tags"       : ["Category"],
+        "consumes"   : "application/json",
+        "produces"   : "application/json",
+        "parameters" : [
+          { "$ref": "#/parameters/Authorization" },
+          {
+          "in"     : "body",
+          "name"   : "Body",
+          "schema" : {
+            "type"       : "object",
+            "required"   : true,
+            "properties" : {
+              "name"        : { "$ref": "#/parameters/Translates" },
+              "description" : { "$ref": "#/parameters/Translates" }
+            }
+          }
+        }],
+        "responses" : { "200": { "description" : "Successfully response object" }}
+      }
+    },
+    "/api/Category/ForAdmin": {
+      "get": {
+        "tags"       : ["Category"],
+        "consumes"   : "application/json",
+        "produces"   : "application/json",
+        "parameters" : [{ "$ref": "#/parameters/Authorization" }],
+        "responses"  : { "200": { "description" : "Successfully response object" }}
+      }
+    },
+    "/api/Category/Edit/{categoryId}": {
+      "put": {
+        "tags"       : ["Category"],
+        "consumes"   : "application/json",
+        "produces"   : "application/json",
+        "parameters" : [
+          { "$ref": "#/parameters/Authorization" },
+          { "in":"path", "name":"categoryId", "type":"string", "required": true },
+          {
+          "in"     : "body",
+          "name"   : "Body",
+          "schema" : {
+            "type"       : "object",
+            "required"   : true,
+            "properties" : {
+              "name"        : { "$ref": "#/parameters/Translates" },
+              "description" : { "$ref": "#/parameters/Translates" }
+            }
+          }
+        }]
+      }
+    },
+    "/api/Category/Status/{categoryId}": {
+      "put": {
+        "tags"       : ["Category"],
+        "consumes"   : "application/json",
+        "produces"   : "application/json",
+        "parameters" : [
+          { "$ref": "#/parameters/Authorization" },
+          { "in":"path", "name":"categoryId", "type":"string", "required": true },
+          {
+          "in"     : "body",
+          "name"   : "Body",
+          "schema" : {
+            "type"       : "object",
+            "required"   : true,
+            "properties" : {
+              "status" : {"type": "number"}
+            }
+          }
+        }]
+      }
+    },
+    "/api/Category/Position": {
+      "put": {
+        "tags"       : ["Category"],
+        "consumes"   : "application/json",
+        "produces"   : "application/json",
+        "parameters" : [
+          { "$ref": "#/parameters/Authorization" },
+          {
+          "in"     : "body",
+          "name"   : "Body",
+          "schema" : {
+            "type"       : "object",
+            "required"   : true,
+            "properties" : {
+              "from" : {"type": "number"},
+              "to"   : {"type": "number"}
+            }
+          }
+        }]
+      }
+    },
+    "/api/Category/Upload": {
+      "put": {
+        "tags"       : ["Category"],
+        "consumes"   : "application/json",
+        "produces"   : "application/json",
+        "parameters" : [
+          { "$ref": "#/parameters/Authorization" },
+          { "in":"query", "name":"id", "type":"string", "required": true },
+          { "in":"query", "name":"imageType", "type":"number", "required": true }]
+      }
+    },
+
+
+    "/api/Promotion": {
+      "get": {
+        "tags"      : ["Promotion"],
+        "consumes"  : "application/json",
+        "produces"  : "application/json",
+        "responses" : { "200": { "description" : "Successfully response object" }}
+      }
+    },
+    "/api/Promotion/Details/{id}": {
+      "get": {
+        "tags"       : ["Promotion"],
+        "consumes"   : "application/json",
+        "produces"   : "application/json",
+        "parameters" : [
+          { "in":"path", "name":"id", "type":"string", "required": true }
+        ],
+        "responses" : { "200": { "description" : "Successfully response object" }}
+      }
+    },
+    "/api/Promotion/Create": {
+      "post": {
+        "tags"       : ["Promotion"],
+        "consumes"   : "application/json",
+        "produces"   : "application/json",
+        "parameters" : [
+          { "$ref": "#/parameters/Authorization" },
+          {
+          "in"     : "body",
+          "name"   : "Body",
+          "schema" : {
+            "type"       : "object",
+            "required"   : true,
+            "properties" : {
+              "name"        : { "$ref": "#/parameters/Translates" },
+              "description" : { "$ref": "#/parameters/Translates" }
+            }
+          }
+        }],
+        "responses" : { "200": { "description" : "Successfully response object" }}
+      }
+    },
+    "/api/Promotion/ForAdmin": {
+      "get": {
+        "tags"       : ["Promotion"],
+        "consumes"   : "application/json",
+        "produces"   : "application/json",
+        "parameters" : [{ "$ref": "#/parameters/Authorization" }],
+        "responses"  : { "200": { "description" : "Successfully response object" }}
+      }
+    },
+    "/api/Promotion/Edit/{categoryId}": {
+      "put": {
+        "tags"       : ["Promotion"],
+        "consumes"   : "application/json",
+        "produces"   : "application/json",
+        "parameters" : [
+          { "$ref": "#/parameters/Authorization" },
+          { "in":"path", "name":"categoryId", "type":"string", "required": true },
+          {
+          "in"     : "body",
+          "name"   : "Body",
+          "schema" : {
+            "type"       : "object",
+            "required"   : true,
+            "properties" : {
+              "name"        : { "$ref": "#/parameters/Translates" },
+              "description" : { "$ref": "#/parameters/Translates" }
+            }
+          }
+        }]
+      }
+    },
+    "/api/Promotion/Status/{categoryId}": {
+      "put": {
+        "tags"       : ["Promotion"],
+        "consumes"   : "application/json",
+        "produces"   : "application/json",
+        "parameters" : [
+          { "$ref": "#/parameters/Authorization" },
+          { "in":"path", "name":"categoryId", "type":"string", "required": true },
+          {
+          "in"     : "body",
+          "name"   : "Body",
+          "schema" : {
+            "type"       : "object",
+            "required"   : true,
+            "properties" : {
+              "status" : {"type": "number"}
+            }
+          }
+        }]
+      }
+    },
+    "/api/Promotion/Position": {
+      "put": {
+        "tags"       : ["Promotion"],
+        "consumes"   : "application/json",
+        "produces"   : "application/json",
+        "parameters" : [
+          { "$ref": "#/parameters/Authorization" },
+          {
+          "in"     : "body",
+          "name"   : "Body",
+          "schema" : {
+            "type"       : "object",
+            "required"   : true,
+            "properties" : {
+              "from" : {"type": "number"},
+              "to"   : {"type": "number"}
+            }
+          }
+        }]
+      }
+    },
+    "/api/Promotion/Upload": {
+      "put": {
+        "tags"       : ["Promotion"],
+        "consumes"   : "application/json",
+        "produces"   : "application/json",
+        "parameters" : [
+          { "$ref": "#/parameters/Authorization" },
+          { "in":"query", "name":"id", "type":"string", "required": true },
+          { "in":"query", "name":"imageType", "type":"number", "required": true }]
+      }
+    },
+
+    "/api/Address": {
+      "post": {
+        "tags"       : ["Address"],
+        "consumes"   : "application/json",
+        "produces"   : "application/json",
+        "parameters" : [
+          { "$ref": "#/parameters/Authorization" },
+          {
+          "in"     : "body",
+          "name"   : "Body",
+          "schema" : {
+            "type"       : "object",
+            "required"   : true,
+            "properties" : {
+              "address": {
+                "type"     : "string",
+                "required" : true
+              },
+              "doorphone": {
+                "type"     : "number",
+                "required" : false
+              },
+              "entrance": {
+                "type"     : "number",
+                "required" : false
+              },
+              "flat": {
+                "type"     : "number",
+                "required" : false
+              },
+              "floor": {
+                "type"     : "number",
+                "required" : false
+              },
+              "latitude": {
+                "type"     : "number",
+                "required" : false
+              },
+              "longitude": {
+                "type"     : "number",
+                "required" : false
+              }
+            }
+          }
+        }],
+        "responses" : { "200": { "description" : "Successfully response object" }}
+      },
+      "delete": {
+        "tags"       : ["Address"],
+        "consumes"   : "application/json",
+        "produces"   : "application/json",
+        "parameters" : [
+          { "$ref": "#/parameters/Authorization" },
+          {
+          "in"     : "body",
+          "name"   : "Body",
+          "schema" : {
+            "type"     : "array",
+            "required" : true,
+            "items"    : {
+              "type" : "string"
+            }
+          }
+        }],
+        "responses" : { "200": { "description" : "Successfully response object" }}
+      },
+      "put": {
+        "tags"       : ["Address"],
+        "consumes"   : "application/json",
+        "produces"   : "application/json",
+        "parameters" : [
+          { "$ref": "#/parameters/Authorization" },
+          {
+          "in"     : "body",
+          "name"   : "Body",
+          "schema" : {
+            "type"       : "object",
+            "required"   : true,
+            "properties" : {
+              "_id": {
+                "type"     : "string",
+                "required" : true
+              },
+              "address": {
+                "type"     : "string",
+                "required" : false
+              },
+              "doorphone": {
+                "type"     : "number",
+                "required" : false
+              },
+              "entrance": {
+                "type"     : "number",
+                "required" : false
+              },
+              "flat": {
+                "type"     : "number",
+                "required" : false
+              },
+              "floor": {
+                "type"     : "number",
+                "required" : false
+              },
+              "latitude": {
+                "type"     : "number",
+                "required" : false
+              },
+              "longitude": {
+                "type"     : "number",
+                "required" : false
+              }
+            }
+          }
+        }],
+        "responses" : { "200": { "description" : "Successfully response object" }}
+      },
+      "get": {
+        "tags"       : ["Address"],
+        "consumes"   : "application/json",
+        "produces"   : "application/json",
+        "parameters" : [{ "$ref": "#/parameters/Authorization" }],
+        "responses"  : { "200": { "description" : "Successfully response object" }}
+      }
+    },
+    "/api/Address/{addressId}": {
+      "get": {
+        "tags"       : ["Address"],
+        "consumes"   : "application/json",
+        "produces"   : "application/json",
+        "parameters" : [
+          { "$ref": "#/parameters/Authorization" },
+          { "in":"path", "name":"addressId", "type":"string", "required": true }
+        ],
+        "responses" : { "200": { "description" : "Successfully response object" }}
+      }
+    },
+
+    "/api/images/{width}/{height}/{imagePath}": {
+      "get": {
+        "tags"       : ["Images"],
+        "consumes"   : "application/json",
+        "produces"   : "application/json",
+        "parameters" : [
+          { "$ref": "#/parameters/Authorization" },
+          { "in":"path", "name":"width", "type":"number", "required": true },
+          { "in":"path", "name":"height", "type":"number", "required": true },
+          { "in":"path", "name":"imagePath", "type":"string", "required": true }
+        ],
+        "responses" : { "200": { "description" : "Successfully response object" }}
+      }
+    },
+
+    "/api/Device/Create": {
+      "post": {
+        "tags"       : ["Device"],
+        "consumes"   : "application/json",
+        "produces"   : "application/json",
+        "parameters" : [
+          { "$ref": "#/parameters/Authorization" },
+          {
+          "in"     : "body",
+          "name"   : "Body",
+          "schema" : {
+            "type"       : "object",
+            "required"   : true,
+            "properties" : {
+              "deviceId": {
+                "type"     : "string",
+                "required" : true
+              },
+              "language": {
+                "type"     : "string",
+                "required" : true
+              },
+              "osType": {
+                "type"     : "string",
+                "required" : true
+              },
+              "token": {
+                "type"     : "string",
+                "required" : true
+              },
+              "userId": {
+                "type" : "string"
+              }
+            }
+          }
+        }],
+        "responses" : { "200": { "description" : "Successfully response object" }}
+      }
+    },
+    "/api/Device/Language": {
+      "put": {
+        "tags"       : ["Device"],
+        "consumes"   : "application/json",
+        "produces"   : "application/json",
+        "parameters" : [
+          { "$ref": "#/parameters/Authorization" },
+          {
+          "in"     : "body",
+          "name"   : "Body",
+          "schema" : {
+            "type"       : "object",
+            "required"   : true,
+            "properties" : {
+              "deviceId": {
+                "type"     : "string",
+                "required" : true
+              },
+              "code": {
+                "type"     : "string",
+                "required" : true
+              }
+            }
+          }
+        }],
+        "responses" : { "200": { "description" : "Successfully response object" }}
+      }
+    },
+
+    "/api/Subcategory/Create": {
+      "post": {
+        "tags"       : ["Subcategory"],
+        "consumes"   : "application/json",
+        "produces"   : "application/json",
+        "parameters" : [
+          { "$ref": "#/parameters/Authorization" },
+          {
+          "in"     : "body",
+          "name"   : "Body",
+          "schema" : {
+            "type"       : "object",
+            "required"   : true,
+            "properties" : {
+              "mainCategoryId": {
+                "type"     : "number",
+                "required" : true
+              },
+              "name" : { "$ref": "#/parameters/Translates" }
+            }
+          }
+        }],
+        "responses" : { "200": { "description" : "Successfully response object" }}
+      }
+    },
+    "/api/Subcategory/Edit/{subcategoryId}": {
+      "put": {
+        "tags"       : ["Subcategory"],
+        "consumes"   : "application/json",
+        "produces"   : "application/json",
+        "parameters" : [
+          { "$ref": "#/parameters/Authorization" },
+          { "in":"path", "name":"subcategoryId", "type":"string", "required": true },
+          {
+          "in"     : "body",
+          "name"   : "Body",
+          "schema" : {
+            "type"       : "object",
+            "required"   : true,
+            "properties" : {
+              "mainCategoryId": {
+                "type"     : "number",
+                "required" : true
+              },
+              "name" : { "$ref": "#/parameters/Translates" }
+            }
+          }
+        }],
+        "responses" : { "200": { "description" : "Successfully response object" }}
+      }
+    },
+    "/api/Subcategory/{mainCategoryId}": {
+      "get": {
+        "tags"       : ["Subcategory"],
+        "consumes"   : "application/json",
+        "parameters" : [
+          { "$ref": "#/parameters/Authorization" },
+          { "in":"path", "name":"mainCategoryId", "type":"string", "required": true }
+        ],
+        "responses" : { "200": { "description" : "Successfully response object" }}
+      }
+    },
+    "/api/Subcategory/Short/{mainCategoryId}": {
+      "get": {
+        "tags"       : ["Subcategory"],
+        "consumes"   : "application/json",
+        "parameters" : [
+          { "$ref": "#/parameters/Authorization" },
+          { "in":"path", "name":"mainCategoryId", "type":"string", "required": true }
+        ],
+        "responses" : { "200": { "description" : "Successfully response object" }}
+      }
+    },
+    "/api/Subcategory/ForAdmin/{mainCategoryId}": {
+      "get": {
+        "tags"       : ["Subcategory"],
+        "consumes"   : "application/json",
+        "parameters" : [
+          { "$ref": "#/parameters/Authorization" },
+          { "in":"path", "name":"mainCategoryId", "type":"string", "required": true }
+        ],
+        "responses" : { "200": { "description" : "Successfully response object" }}
+      }
+    },
+    "/api/Subcategory/Status/{categoryId}": {
+      "put": {
+        "tags"       : ["Subcategory"],
+        "consumes"   : "application/json",
+        "produces"   : "application/json",
+        "parameters" : [
+          { "$ref": "#/parameters/Authorization" },
+          { "in":"path", "name":"categoryId", "type":"string", "required": true },
+          {
+          "in"     : "body",
+          "name"   : "Body",
+          "schema" : {
+            "type"       : "object",
+            "required"   : true,
+            "properties" : {
+              "status" : {"type": "number"}
+            }
+          }
+        }]
+      }
+    },
+    "/api/Subcategory/Position": {
+      "put": {
+        "tags"       : ["Subcategory"],
+        "consumes"   : "application/json",
+        "produces"   : "application/json",
+        "parameters" : [
+          { "$ref": "#/parameters/Authorization" },
+          {
+          "in"     : "body",
+          "name"   : "Body",
+          "schema" : {
+            "type"       : "object",
+            "required"   : true,
+            "properties" : {
+              "from" : {"type": "number"},
+              "to"   : {"type": "number"}
+            }
+          }
+        }]
+      }
+    },
+
+    "/api/Company": {
+      "get": {
+        "tags"       : ["Company"],
+        "consumes"   : "application/json",
+        "parameters" : [
+          { "$ref": "#/parameters/Authorization" },
+          {
+            "in"       : "query",
+            "name"     : "mainCategoryId",
+            "type"     : "string",
+            "required" : true
+          },
+          {
+            "in"   : "query",
+            "name" : "subcategoryId",
+            "type" : "string"
+          },
+          {
+            "in"   : "query",
+            "name" : "sortBy",
+            "type" : "number"
+          },
+          {
+            "in"       : "query",
+            "name"     : "count",
+            "type"     : "number",
+            "required" : true
+          },
+          {
+            "in"       : "query",
+            "name"     : "page",
+            "type"     : "number",
+            "required" : true
+          }
+        ],
+        "responses" : { "200": { "description" : "Successfully response object" }}
+      }
+    },
+    "/api/Company/WithDistance": {
+      "get": {
+        "tags"       : ["Company"],
+        "consumes"   : "application/json",
+        "parameters" : [
+          { "$ref": "#/parameters/Authorization" },
+          {
+            "in"       : "query",
+            "name"     : "mainCategoryId",
+            "type"     : "string",
+            "required" : true
+          },
+          {
+            "in"   : "query",
+            "name" : "subcategoryId",
+            "type" : "string"
+          },
+          {
+            "in"   : "query",
+            "name" : "sortBy",
+            "type" : "number"
+          },
+          {
+            "in"       : "query",
+            "name"     : "count",
+            "type"     : "number",
+            "required" : true
+          },
+          {
+            "in"       : "query",
+            "name"     : "page",
+            "type"     : "number",
+            "required" : true
+          },
+          {
+            "in"       : "query",
+            "name"     : "latitude",
+            "type"     : "number",
+            "required" : true
+          },
+          {
+            "in"       : "query",
+            "name"     : "longitude",
+            "type"     : "number",
+            "required" : true
+          }
+        ],
+        "responses" : { "200": { "description" : "Successfully response object" }}
+      }
+    },
+    "/api/Company/Sales": {
+      "get": {
+        "tags"       : ["Company"],
+        "consumes"   : "application/json",
+        "parameters" : [
+          { "$ref": "#/parameters/Authorization" },
+          {
+            "in"   : "query",
+            "name" : "sortBy",
+            "type" : "number"
+          },
+          {
+            "in"       : "query",
+            "name"     : "count",
+            "type"     : "number",
+            "required" : true
+          },
+          {
+            "in"       : "query",
+            "name"     : "page",
+            "type"     : "number",
+            "required" : true
+          }
+        ],
+        "responses" : { "200": { "description" : "Successfully response object" }}
+      }
+    },
+    "/api/Company/Details/{id}": {
+      "get": {
+        "tags"       : ["Company"],
+        "consumes"   : "application/json",
+        "parameters" : [
+          { "in": "path", "name": "id", "type": "string", "required": true }
+        ],
+        "responses" : { "200": { "description" : "Successfully response object" }}
+      }
+    },
+    "/api/Company/GetByFilter": {
+      "post": {
+        "tags"       : ["Company"],
+        "consumes"   : "application/json",
+        "parameters" : [
+          {
+            "in"     : "body",
+            "name"   : "Body",
+            "schema" : {
+              "type"       : "object",
+              "required"   : true,
+              "properties" : {
+                "name"           : { "type": "string" },
+                "count"          : { "type": "number", "required": true },
+                "page"           : { "type": "number", "required": true },
+                "sortBy"         : { "type": "number" },
+                "mainCategoryId" : { "type": "string", "required": true },
+                "subcategoryId"  : { "type": "string" }
+              }
+            }
+          }
+        ],
+        "responses" : { "200": { "description" : "Successfully response object" }}
+      }
+    },
+    "/api/Company/ForAdmin": {
+      "post": {
+        "tags"       : ["Company"],
+        "consumes"   : "application/json",
+        "parameters" : [
+          { "$ref": "#/parameters/Authorization" },
+          {
+            "in"       : "query",
+            "name"     : "count",
+            "type"     : "number",
+            "required" : true
+          },
+          {
+            "in"       : "query",
+            "name"     : "page",
+            "type"     : "number",
+            "required" : true
+          }
+        ],
+        "responses" : { "200": { "description" : "Successfully response object" }}
+      }
+    },
+    "/api/Company/Upload": {
+      "put": {
+        "tags"       : ["Company"],
+        "consumes"   : "application/json",
+        "produces"   : "application/json",
+        "parameters" : [
+          { "$ref": "#/parameters/Authorization" },
+          { "in": "query", "name": "companyId", "type": "string", "required": true },
+          { "in": "query", "name": "imageType", "type": "number", "required": true },
+          { "in": "formData", "name":"imagePath", "type":"file", "required": true }
+        ],
+        "responses" : { "200": { "description" : "Successfully response object" }}
+      }
+    },
+    "/api/Company/Edit/{companyId}": {
+      "put": {
+        "tags"       : ["Company"],
+        "consumes"   : "application/json",
+        "produces"   : "application/json",
+        "parameters" : [
+          { "$ref": "#/parameters/Authorization" },
+          { "in":"path", "name":"companyId", "type":"string", "required": true },
+          {
+          "in"     : "body",
+          "name"   : "Body",
+          "schema" : {
+            "type"       : "object",
+            "required"   : true,
+            "properties" : {
+              "name"           : { "$ref": "#/parameters/Translates" },
+              "deliveryFee"    : { "type": "number", "required": true },
+              "rating"         : { "type": "number" },
+              "mainCategories" : {
+                "type"  : "array",
+                "items" : {
+                  "type" : "string"
+                }
+              },
+              "categories": {
+                "type"  : "array",
+                "items" : {
+                  "type" : "string"
+                }
+              }
+            }
+          }
+        }]
+      }
+    },
+    "/api/Company/Create": {
+      "post": {
+        "tags"       : ["Company"],
+        "consumes"   : "application/json",
+        "produces"   : "application/json",
+        "parameters" : [
+          { "$ref": "#/parameters/Authorization" },
+          {
+            "in"     : "body",
+            "name"   : "Body",
+            "schema" : {
+              "type"       : "object",
+              "required"   : true,
+              "properties" : {
+                "deliveryFee": {
+                  "type"     : "number",
+                  "required" : true
+                },
+                "rating": {
+                  "type" : "number"
+                },
+                "mainCategories": {
+                  "type"  : "array",
+                  "items" : {
+                    "type" : "string"
+                  }
+                },
+                "categories": {
+                  "type"  : "array",
+                  "items" : {
+                    "type" : "string"
+                  }
+                },
+                "name" : { "$ref": "#/parameters/Translates" }
+              }
+            }
+          }
+        ],
+        "responses" : { "200": { "description" : "Successfully response object" }}
+      }
+    },
+    "/api/Admin/Details": {
+      "get": {
+        "tags"       : ["Admin"],
+        "consumes"   : "application/json",
+        "produces"   : "application/json",
+        "parameters" : [{ "$ref": "#/parameters/Authorization" }],
+        "responses"  : { "200": { "description" : "Successfully response object" }}
+      }
+    },
+    "/api/Admin/List": {
+      "get": {
+        "tags"       : ["Admin"],
+        "consumes"   : "application/json",
+        "produces"   : "application/json",
+        "parameters" : [
+          { "$ref": "#/parameters/Authorization" },
+          { "in": "query", "name": "role", "type": "number", "required": true }
+        ],
+        "responses" : { "200": { "description" : "Successfully response object" }}
+      }
+    },
+    "/api/Admin/Upload/{id}": {
+      "put": {
+        "tags"       : ["Admin"],
+        "consumes"   : "application/json",
+        "produces"   : "application/json",
+        "parameters" : [
+          { "$ref": "#/parameters/Authorization" },
+          { "in": "path", "name":"id", "type":"string", "required": true },
+          { "in": "formData", "name":"imagePath", "type":"file", "required": true }
+        ]
+      }
+    },
+    "/api/Admin/ChangePassword": {
+      "put": {
+        "tags"       : ["Admin"],
+        "consumes"   : "application/json",
+        "produces"   : "application/json",
+        "parameters" : [
+          { "$ref": "#/parameters/Authorization" },
+          {
+            "in"     : "body",
+            "name"   : "Body",
+            "schema" : {
+              "type"       : "object",
+              "required"   : true,
+              "properties" : {
+                "oldPassword": {
+                  "type"     : "string",
+                  "required" : true
+                },
+                "newPassword": {
+                  "type"     : "string",
+                  "required" : true
+                },
+                "newConfirmPassword": {
+                  "type"     : "string",
+                  "required" : true
+                }
+              }
+            }
+          }
+        ],
+        "responses" : { "200": { "description" : "Successfully response object" }}
+      }
+    },
+    "/api/Admin/Edit": {
+      "put": {
+        "tags"       : ["Admin"],
+        "consumes"   : "application/json",
+        "produces"   : "application/json",
+        "parameters" : [
+          { "$ref": "#/parameters/Authorization" },
+          {
+          "in"     : "body",
+          "name"   : "Body",
+          "schema" : {
+            "type"       : "object",
+            "required"   : true,
+            "properties" : {
+              "firstName" : { "type": "string", "required": true },
+              "lastName"  : { "type": "string", "required": true },
+              "email"     : { "type": "string", "required": true },
+              "phone"     : { "type": "string", "required": true }
+            }
+          }
+        }],
+        "responses" : { "200": { "description" : "Successfully response object" }}
+      }
+    },
+    "/api/Admin/Edit/{id}": {
+      "put": {
+        "tags"       : ["Admin"],
+        "consumes"   : "application/json",
+        "produces"   : "application/json",
+        "parameters" : [
+          { "$ref": "#/parameters/Authorization" },
+          { "in": "path", "name": "id", "type": "string", "required": true },
+          {
+          "in"     : "body",
+          "name"   : "Body",
+          "schema" : {
+            "type"       : "object",
+            "required"   : true,
+            "properties" : {
+              "firstName" : { "type": "string", "required": true },
+              "lastName"  : { "type": "string", "required": true },
+              "email"     : { "type": "string", "required": true },
+              "phone"     : { "type": "string", "required": true },
+              "role"      : { "type": "number", "required": true }
+            }
+          }
+        }],
+        "responses" : { "200": { "description" : "Successfully response object" }}
+      }
+    },
+    "/api/Admin/Create": {
+      "post": {
+        "tags"       : ["Admin"],
+        "consumes"   : "application/json",
+        "produces"   : "application/json",
+        "parameters" : [
+          { "$ref": "#/parameters/Authorization" },
+          {
+          "in"     : "body",
+          "name"   : "Body",
+          "schema" : {
+            "type"       : "object",
+            "required"   : true,
+            "properties" : {
+              "firstName" : { "type": "string", "required": true },
+              "lastName"  : { "type": "string", "required": true },
+              "email"     : { "type": "string", "required": true },
+              "phone"     : { "type": "string", "required": true },
+              "role"      : { "type": "number", "required": true },
+              "password"  : { "type": "string", "required": true }
+            }
+          }
+        }],
+        "responses" : { "200": { "description" : "Successfully response object" }}
+      }
+    },
+    "/api/Admin/Delete/{id}": {
+      "delete": {
+        "tags"       : ["Admin"],
+        "consumes"   : "application/json",
+        "produces"   : "application/json",
+        "parameters" : [
+          { "$ref": "#/parameters/Authorization" },
+          { "in": "path", "name": "id", "type": "string", "required": true }
+        ],
+        "responses" : { "200": { "description" : "Successfully response object" }}
+      }
+    },
+
+    "/api/Attribute/CreateGroup": {
+      "post": {
+        "tags"       : ["Attribute"],
+        "consumes"   : "application/json",
+        "produces"   : "application/json",
+        "parameters" : [
+          { "$ref": "#/parameters/Authorization" },
+          {
+            "in"     : "body",
+            "name"   : "Body",
+            "schema" : {
+              "type"       : "object",
+              "required"   : true,
+              "properties" : {
+                "company" : { "type": "number", "required": true },
+                "name"    : { "$ref": "#/parameters/Translates" }
+              }
+            }
+          }
+        ],
+        "responses" : { "200": { "description" : "Successfully response object" }}
+      }
+    },
+    "/api/Attribute/Create": {
+      "post": {
+        "tags"       : ["Attribute"],
+        "consumes"   : "application/json",
+        "produces"   : "application/json",
+        "parameters" : [
+          { "$ref": "#/parameters/Authorization" },
+          {
+            "in"     : "body",
+            "name"   : "Body",
+            "schema" : {
+              "type"       : "object",
+              "required"   : true,
+              "properties" : {
+                "attributeGroup" : { "type": "string", "required": true },
+                "price"          : { "type": "number" },
+                "name"           : { "$ref": "#/parameters/Translates" }
+              }
+            }
+          }
+        ],
+        "responses" : { "200": { "description" : "Successfully response object" }}
+      }
+    },
+    "/api/Attribute/EditGroup/{groupId}": {
+      "put": {
+        "tags"       : ["Attribute"],
+        "consumes"   : "application/json",
+        "produces"   : "application/json",
+        "parameters" : [
+          { "$ref": "#/parameters/Authorization" },
+          { "in":"path", "name":"groupId", "type":"string", "required": true },
+          {
+          "in"     : "body",
+          "name"   : "Body",
+          "schema" : {
+            "type"       : "object",
+            "required"   : true,
+            "properties" : {
+              "name" : { "$ref": "#/parameters/Translates" }
+            }
+          }
+        }],
+        "responses" : { "200": { "description" : "Successfully response object" }}
+      }
+    },
+    "/api/Attribute/Edit/{attributeId}": {
+      "put": {
+        "tags"       : ["Attribute"],
+        "consumes"   : "application/json",
+        "produces"   : "application/json",
+        "parameters" : [
+          { "$ref": "#/parameters/Authorization" },
+          { "in":"path", "name":"attributeId", "type":"string", "required": true },
+          {
+          "in"     : "body",
+          "name"   : "Body",
+          "schema" : {
+            "type"       : "object",
+            "required"   : true,
+            "properties" : {
+              "price" : { "type": "number" },
+              "name"  : { "$ref": "#/parameters/Translates" }
+            }
+          }
+        }],
+        "responses" : { "200": { "description" : "Successfully response object" }}
+      }
+    },
+    "/api/Attribute/GetGroupList/{companyId}": {
+      "get": {
+        "tags"       : ["Attribute"],
+        "consumes"   : "application/json",
+        "produces"   : "application/json",
+        "parameters" : [
+          { "$ref": "#/parameters/Authorization" },
+          { "in":"path", "name":"companyId", "type":"string", "required": true }
+         ],
+        "responses" : { "200": { "description" : "Successfully response object" }}
+      }
+    },
+    "/api/Attribute/GetList/{groupId}": {
+      "get": {
+        "tags"       : ["Attribute"],
+        "consumes"   : "application/json",
+        "produces"   : "application/json",
+        "parameters" : [
+          { "$ref": "#/parameters/Authorization" },
+          { "in":"path", "name":"groupId", "type":"string", "required": true }
+         ],
+        "responses" : { "200": { "description" : "Successfully response object" }}
+      }
+    },
+
+    "/api/MenuItem/GetList/{companyId}": {
+      "get": {
+        "tags"       : ["MenuItem"],
+        "consumes"   : "application/json",
+        "produces"   : "application/json",
+        "parameters" : [
+          { "in":"path", "name":"companyId", "type":"string", "required": true }
+         ],
+        "responses" : { "200": { "description" : "Successfully response object" }}
+      }
+    },
+    "/api/MenuItem/Details/{menuItemId}": {
+      "get": {
+        "tags"       : ["MenuItem"],
+        "consumes"   : "application/json",
+        "produces"   : "application/json",
+        "parameters" : [
+          { "$ref": "#/parameters/Authorization" },
+          { "in":"path", "name":"menuItemId", "type":"string", "required": true }
+         ],
+        "responses" : { "200": { "description" : "Successfully response object" }}
+      }
+    },
+    "/api/MenuItem/Edit/{menuItemId}": {
+      "put": {
+        "tags"       : ["MenuItem"],
+        "consumes"   : "application/json",
+        "produces"   : "application/json",
+        "parameters" : [
+          { "$ref": "#/parameters/Authorization" },
+          { "in":"path", "name":"menuItemId", "type":"string", "required": true },
+          {
+          "in"     : "body",
+          "name"   : "Body",
+          "schema" : {
+            "type"       : "object",
+            "required"   : true,
+            "properties" : {
+              "name" : { "$ref": "#/parameters/Translates" }
+            }
+          }
+        }],
+        "responses" : { "200": { "description" : "Successfully response object" }}
+      }
+    },
+    "/api/MenuItem/Create": {
+      "post": {
+        "tags"       : ["MenuItem"],
+        "consumes"   : "application/json",
+        "produces"   : "application/json",
+        "parameters" : [
+          { "$ref": "#/parameters/Authorization" },
+          {
+          "in"     : "body",
+          "name"   : "Body",
+          "schema" : {
+            "type"       : "object",
+            "required"   : true,
+            "properties" : {
+              "company" : { "type": "number", "required": true },
+              "name"    : { "$ref": "#/parameters/Translates" }
+            }
+          }
+        }],
+        "responses" : { "200": { "description" : "Successfully response object" }}
+      }
+    },
+    "/api/MenuItem/Status/{id}": {
+      "put": {
+        "tags"       : ["MenuItem"],
+        "consumes"   : "application/json",
+        "produces"   : "application/json",
+        "parameters" : [
+          { "$ref": "#/parameters/Authorization" },
+          { "in":"path", "name":"id", "type":"string", "required": true },
+          {
+          "in"     : "body",
+          "name"   : "Body",
+          "schema" : {
+            "type"       : "object",
+            "required"   : true,
+            "properties" : {
+              "status" : {"type": "number"}
+            }
+          }
+        }]
+      }
+    },
+    "/api/MenuItem/Position": {
+      "put": {
+        "tags"       : ["MenuItem"],
+        "consumes"   : "application/json",
+        "produces"   : "application/json",
+        "parameters" : [
+          { "$ref": "#/parameters/Authorization" },
+          {
+          "in"     : "body",
+          "name"   : "Body",
+          "schema" : {
+            "type"       : "object",
+            "required"   : true,
+            "properties" : {
+              "from" : {"type": "number"},
+              "to"   : {"type": "number"}
+            }
+          }
+        }]
+      }
+    },
+
+    "/api/Branch": {
+      "get": {
+        "tags"       : ["Branch"],
+        "consumes"   : "application/json",
+        "produces"   : "application/json",
+        "parameters" : [
+          { "in": "query", "name": "mainCompanyId", "type": "string", "required": true }
+        ],
+        "responses" : { "200": { "description" : "Successfully response object" }}
+      }
+    },
+    "/api/Branch/ForAdmin": {
+      "get": {
+        "tags"       : ["Branch"],
+        "consumes"   : "application/json",
+        "produces"   : "application/json",
+        "parameters" : [
+          { "$ref": "#/parameters/Authorization" },
+          { "in": "query", "name": "mainCompanyId", "type": "string", "required": true }
+        ],
+        "responses" : { "200": { "description" : "Successfully response object" }}
+      }
+    },
+    "/api/Branch/Create": {
+      "post": {
+        "tags"       : ["Branch"],
+        "consumes"   : "application/json",
+        "produces"   : "application/json",
+        "parameters" : [
+          { "$ref": "#/parameters/Authorization" },
+          {
+            "in"     : "body",
+            "name"   : "Body",
+            "schema" : {
+              "type"       : "object",
+              "required"   : true,
+              "properties" : {
+                "address"       : { "type": "string", "required": true },
+                "city"          : { "type": "string", "required": true },
+                "country"       : { "type": "string", "required": true },
+                "mainCompanyId" : { "type": "string", "required": true },
+                "latitude"      : { "type": "string", "required": true },
+                "longitude"     : { "type": "string", "required": true },
+                "workingHours"  : {
+                  "type"     : "array",
+                  "required" : true,
+                  "items"    : {
+                    "type"       : "object",
+                    "required"   : true,
+                    "properties" : {
+                      "workingHoursStart" : { "type": "string", "required": true },
+                      "workingHoursEnd"   : { "type": "string", "required": true }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        ],
+        "responses" : { "200": { "description" : "Successfully response object" }}
+      }
+    },
+    "/api/Branch/Edit/{id}": {
+      "put": {
+        "tags"       : ["Branch"],
+        "consumes"   : "application/json",
+        "produces"   : "application/json",
+        "parameters" : [
+          { "$ref": "#/parameters/Authorization" },
+          { "in":"path", "name":"id", "type":"string", "required": true },
+          {
+            "in"     : "body",
+            "name"   : "Body",
+            "schema" : {
+              "type"       : "object",
+              "required"   : true,
+              "properties" : {
+                "address"       : { "type": "string", "required": true },
+                "city"          : { "type": "string", "required": true },
+                "country"       : { "type": "string", "required": true },
+                "mainCompanyId" : { "type": "string", "required": true },
+                "latitude"      : { "type": "string", "required": true },
+                "longitude"     : { "type": "string", "required": true },
+                "workingHours"  : {
+                  "type"     : "array",
+                  "required" : true,
+                  "items"    : {
+                    "type"       : "object",
+                    "required"   : true,
+                    "properties" : {
+                      "workingHoursStart" : { "type": "string", "required": true },
+                      "workingHoursEnd"   : { "type": "string", "required": true }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        ],
+        "responses" : { "200": { "description" : "Successfully response object" }}
+      }
+    },
+
+    "/api/Branch/Status/{id}": {
+      "put": {
+        "tags"       : ["Branch"],
+        "consumes"   : "application/json",
+        "produces"   : "application/json",
+        "parameters" : [
+          { "$ref": "#/parameters/Authorization" },
+          { "in":"path", "name":"id", "type":"string", "required": true },
+          {
+          "in"     : "body",
+          "name"   : "Body",
+          "schema" : {
+            "type"       : "object",
+            "required"   : true,
+            "properties" : {
+              "status" : {"type": "number"}
+            }
+          }
+        }]
+      }
+    },
+
+    "/api/Notification/List": {
+      "get": {
+        "tags"       : ["Notification"],
+        "consumes"   : "application/json",
+        "parameters" : [
+          { "$ref": "#/parameters/Authorization" },
+          { "in":"query", "name":"count", "type":"number", "required": true },
+          { "in":"query", "name":"page", "type":"number", "required": true }
+        ],
+        "responses" : { "200": { "description" : "Successfully response object" }}
+      }
+    },
+    "/api/Notification/Badge": {
+      "get": {
+        "tags"       : ["Notification"],
+        "consumes"   : "application/json",
+        "parameters" : [
+          { "$ref": "#/parameters/Authorization" }
+        ],
+        "responses" : { "200": { "description" : "Successfully response object" }}
+      }
+    },
+    "/api/Notification/ListForAdmin": {
+      "get": {
+        "tags"       : ["Notification"],
+        "consumes"   : "application/json",
+        "parameters" : [
+          { "$ref": "#/parameters/Authorization" }
+        ],
+        "responses" : { "200": { "description" : "Successfully response object" }}
+      }
+    },
+    "/api/Notification": {
+      "post": {
+        "tags"       : ["Notification"],
+        "consumes"   : "application/json",
+        "parameters" : [
+          { "$ref": "#/parameters/Authorization" },
+          {
+            "in"     : "body",
+            "name"   : "Body",
+            "schema" : {
+              "type"       : "object",
+              "required"   : true,
+              "properties" : {
+                "title"       : { "$ref": "#/parameters/Translates" },
+                "description" : { "$ref": "#/parameters/Translates" },
+                "userRole"    : { "type": "number", "required": true },
+                "users"       : {
+                  "type": "array",
+                  "required": true,
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        ],
+        "responses" : { "200": { "description" : "Successfully response object" }}
+      }
+    },
+    "/api/Notification/DeleteAll": {
+      "delete": {
+        "tags"       : ["Notification"],
+        "consumes"   : "application/json",
+        "parameters" : [
+          { "$ref": "#/parameters/Authorization" }
+        ],
+        "responses" : { "200": { "description" : "Successfully response object" }}
+      }
+    },
+
+    "/api/Product": {
+      "get": {
+        "tags"       : ["Product"],
+        "consumes"   : "application/json",
+        "parameters" : [
+          { "$ref": "#/parameters/Authorization" },
+          { "in":"query", "name":"menuItemId", "type":"string", "required": true },
+          { "in":"query", "name":"count", "type":"number", "required": true },
+          { "in":"query", "name":"page", "type":"number", "required": true }
+        ],
+        "responses" : { "200": { "description" : "Successfully response object" }}
+      }
+    },
+    "/api/Product/{id}": {
+      "get": {
+        "tags"       : ["Product"],
+        "consumes"   : "application/json",
+        "parameters" : [
+          { "in":"path", "name":"id", "type":"string", "required": true }
+        ],
+        "responses" : { "200": { "description" : "Successfully response object" }}
+      }
+    },
+    "/api/Product/Search": {
+      "get": {
+        "tags"       : ["Product"],
+        "consumes"   : "application/json",
+        "parameters" : [
+          { "$ref": "#/parameters/Authorization" },
+          { "in":"query", "name":"companyId", "type":"string", "required": true },
+          { "in":"query", "name":"text", "type":"string", "required": true },
+          { "in":"query", "name":"count", "type":"number", "required": true },
+          { "in":"query", "name":"page", "type":"number", "required": true }
+        ],
+        "responses" : { "200": { "description" : "Successfully response object" }}
+      }
+    },
+    "/api/Product/GetForAdmin": {
+      "post": {
+        "tags"       : ["Product"],
+        "consumes"   : "application/json",
+        "parameters" : [
+          { "$ref": "#/parameters/Authorization" },
+          {
+            "in"     : "body",
+            "name"   : "Body",
+            "schema" : {
+              "type"       : "object",
+              "required"   : true,
+              "properties" : {
+                "count"       : { "type": "number", "required": true },
+                "page"        : { "type": "number", "required": true },
+                "companyId"   : { "type": "string", "required": true },
+                "status"      : { "type": "number" },
+                "priceFrom"   : { "type": "number" },
+                "priceTo"     : { "type": "number" },
+                "name"        : { "type": "string" },
+                "description" : { "type": "string" },
+                "menuItem"    : { "type": "string" }
+              }
+            }
+          }
+        ],
+        "responses" : { "200": { "description" : "Successfully response object" }}
+      }
+    },
+    "/api/Product/GetByFilter": {
+      "post": {
+        "tags"       : ["Product"],
+        "consumes"   : "application/json",
+        "parameters" : [
+          { "$ref": "#/parameters/Authorization" },
+          {
+            "in"     : "body",
+            "name"   : "Body",
+            "schema" : {
+              "type"       : "object",
+              "required"   : true,
+              "properties" : {
+                "count"     : { "type": "number", "required": true },
+                "page"      : { "type": "number", "required": true },
+                "companyId" : { "type": "string", "required": true },
+                "status"    : { "type": "number" },
+                "name"      : { "type": "string" },
+                "menuItem"  : { "type": "string" }
+              }
+            }
+          }
+        ],
+        "responses" : { "200": { "description" : "Successfully response object" }}
+      }
+    },
+    "/api/Product/Create": {
+      "post": {
+        "tags"       : ["Product"],
+        "consumes"   : "application/json",
+        "produces"   : "application/json",
+        "parameters" : [
+          { "$ref": "#/parameters/Authorization" },
+          {
+          "in"     : "body",
+          "name"   : "Body",
+          "schema" : {
+            "type"       : "object",
+            "required"   : true,
+            "properties" : {
+              "company"     : { "type": "string", "required": true },
+              "price"       : { "type": "number", "required": true },
+              "name"        : { "$ref": "#/parameters/Translates" },
+              "description" : { "$ref": "#/parameters/Translates" },
+              "menuItems"   : {
+                "array"    : "string",
+                "required" : true,
+                "items"    : {
+                  "type" : "string"
+                }
+              }
+            }
+          }
+        }],
+        "responses" : { "200": { "description" : "Successfully response object" }}
+      }
+    },
+    "/api/Product/Edit/{id}": {
+      "put": {
+        "tags"       : ["Product"],
+        "consumes"   : "application/json",
+        "produces"   : "application/json",
+        "parameters" : [
+          { "$ref": "#/parameters/Authorization" },
+          { "in":"path", "name":"id", "type":"string", "required": true },
+          {
+            "in"     : "body",
+            "name"   : "Body",
+            "schema" : {
+              "type"       : "object",
+              "required"   : true,
+              "properties" : {
+                "price"       : { "type": "number", "required": true },
+                "name"        : { "$ref": "#/parameters/Translates" },
+                "description" : { "$ref": "#/parameters/Translates" },
+                "menuItems"   : {
+                  "array"    : "string",
+                  "required" : true,
+                  "items"    : {
+                    "type" : "string"
+                  }
+                }
+              }
+            }
+          }
+        ],
+        "responses" : { "200": { "description" : "Successfully response object" }}
+      }
+    },
+    "/api/Product/Status/{id}": {
+      "put": {
+        "tags"       : ["Product"],
+        "consumes"   : "application/json",
+        "produces"   : "application/json",
+        "parameters" : [
+          { "$ref": "#/parameters/Authorization" },
+          { "in":"path", "name":"id", "type":"string", "required": true },
+          {
+          "in"     : "body",
+          "name"   : "Body",
+          "schema" : {
+            "type"       : "object",
+            "required"   : true,
+            "properties" : {
+              "status" : { "type": "number", "required": true }
+            }
+          }
+        }]
+      }
+    },
+    "/api/Product/Position": {
+      "put": {
+        "tags"       : ["Product"],
+        "consumes"   : "application/json",
+        "produces"   : "application/json",
+        "parameters" : [
+          { "$ref": "#/parameters/Authorization" },
+          {
+          "in"     : "body",
+          "name"   : "Body",
+          "schema" : {
+            "type"       : "object",
+            "required"   : true,
+            "properties" : {
+              "from" : { "type": "number", "required": true },
+              "to"   : { "type": "number", "required": true }
+            }
+          }
+        }]
+      }
+    },
+    "/api/Product/Upload/{id}": {
+      "put": {
+        "tags"       : ["Product"],
+        "consumes"   : "application/json",
+        "produces"   : "application/json",
+        "parameters" : [
+          { "$ref": "#/parameters/Authorization" },
+          { "in": "path", "name":"id", "type":"string", "required": true },
+          { "in": "formData", "name":"imagePath", "type":"file", "required": true }
+        ]
+      }
+    },
+    "/api/search": {
+      "post": {
+        "tags"       : ["Search"],
+        "consumes"   : "application/json",
+        "parameters" : [
+          { "$ref": "#/parameters/Authorization" },
+          {
+            "in"     : "body",
+            "name"   : "Body",
+            "schema" : {
+              "type"       : "object",
+              "required"   : true,
+              "properties" : {
+                "text"              : { "type": "string", "required": true },
+                "mainCategoriesIds" : {
+                  "type"  : "array",
+                  "items" : {
+                    "type" : "string"
+                  }
+                }
+              }
+            }
+          }
+        ],
+        "responses" : { "200": { "description" : "Successfully response object" }}
+      }
+    },
+
+    "/api/PromoCode/List": {
+      "get": {
+        "tags"       : ["PromoCode"],
+        "consumes"   : "application/json",
+        "produces"   : "application/json",
+        "parameters" : [
+          { "$ref": "#/parameters/Authorization" }
+        ],
+        "responses" : { "200": { "description" : "Successfully response object" }}
+      }
+    },
+
+    "/api/PromoCode/ListForAdmin": {
+      "get": {
+        "tags"       : ["PromoCode"],
+        "consumes"   : "application/json",
+        "produces"   : "application/json",
+        "parameters" : [
+          { "$ref": "#/parameters/Authorization" }
+        ],
+        "responses" : { "200": { "description" : "Successfully response object" }}
+      }
+    },
+    "/api/PromoCode/CheckPromoCode/{promoCodeId}": {
+      "get": {
+        "tags"       : ["PromoCode"],
+        "consumes"   : "application/json",
+        "produces"   : "application/json",
+        "parameters" : [
+          { "$ref": "#/parameters/Authorization" },
+          { "in": "path", "name": "promoCodeId", "type": "string", "required": true }
+        ],
+        "responses" : { "200": { "description" : "Successfully response object" }}
+      }
+    },
+
+    "/api/PromoCode/Stop/{id}": {
+      "put": {
+        "tags"       : ["PromoCode"],
+        "consumes"   : "application/json",
+        "produces"   : "application/json",
+        "parameters" : [
+          { "$ref": "#/parameters/Authorization" },
+          { "in": "path", "name": "id", "type": "string", "required": true }
+        ],
+        "responses" : { "200": { "description" : "Successfully response object" }}
+      }
+    },
+
+    "/api/PromoCode/Delete/{id}": {
+      "delete": {
+        "tags"       : ["PromoCode"],
+        "consumes"   : "application/json",
+        "produces"   : "application/json",
+        "parameters" : [
+          { "$ref": "#/parameters/Authorization" },
+          { "in": "path", "name": "id", "type": "string", "required": true }
+        ],
+        "responses" : { "200": { "description" : "Successfully response object" }}
+      }
+    },
+    
+    "/api/PromoCode/Create": {
+      "post": {
+        "tags"       : ["PromoCode"],
+        "consumes"   : "application/json",
+        "produces"   : "application/json",
+        "parameters" : [
+          { "$ref": "#/parameters/Authorization" },
+          {
+            "in"     : "body",
+            "name"   : "Body",
+            "schema" : {
+              "type"       : "object",
+              "required"   : true,
+              "properties" : {
+                "title"           : { "$ref": "#/parameters/Translates" },
+                "description"     : { "$ref": "#/parameters/Translates" },
+                "startDate"       : { "type": "string", "required": true },
+                "endDate"         : { "type": "string", "required": true },
+                "quantityPerUser" : { "type": "number", "required": true },
+                "amountType"      : { "type": "number", "required": true },
+                "amount"          : { "type": "number", "required": true },
+                "maxOrderPrice"   : { "type": "number", "required": true },
+                "minOrderPrice"   : { "type": "number", "required": true },
+                "users"           : {
+                  "type"  : "array",
+                  "items" : {
+                    "type" : "string"
+                  }
+                }
+              }
+            }
+          }
+        ],
+        "responses" : { "200": { "description" : "Successfully response object" }}
+      }
+    },
+
+    "/api/basket/GetBasket": {
+      "post": {
+        "tags"       : ["Basket"],
+        "consumes"   : "application/json",
+        "parameters" : [
+          { "$ref": "#/parameters/Authorization" },
+          {
+            "in"     : "body",
+            "name"   : "Body",
+            "schema" : {
+              "type"       : "object",
+              "required"   : true,
+              "properties" : {
+                "companyId": {
+                  "type"       : "object",
+                  "properties" : {
+                    "productId": {
+                      "type"       : "object",
+                      "properties" : {
+                        "uniqId": {
+                          "type"       : "object",
+                          "properties" : {
+                            "comment"      : { "type": "string", "required": true },
+                            "count"        : { "type": "string", "required": true },
+                            "variantsList" : {
+                              "type"  : "array",
+                              "items" : {
+                                "attributeGroupId" : {
+                                  "type"  : "array",
+                                  "items" : {
+                                    "type" : "string"
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        ],
+        "responses" : { "200": { "description" : "Successfully response object" }}
+      }
+    },
+
+    "/api/order/Create": {
+      "post": {
+        "tags"       : ["Order"],
+        "consumes"   : "application/json",
+        "parameters" : [
+          { "$ref": "#/parameters/Authorization" },
+          {
+            "in"     : "body",
+            "name"   : "Body",
+            "schema" : {
+              "type"       : "object",
+              "required"   : true,
+              "properties" : {
+                "phone"      : { "type": "number", "required": true },
+                "name"       : { "type": "string", "required": true },
+                "orderTime"  : { "type": "string", "required": true },
+                "isNow"      : { "type": "boolean", "required": true },
+                "additional" : { "type": "string" },
+                "address"    : {
+                  "type": "object",
+                  "required": true,
+                  "properties": {
+                    "address"   : { "type": "number", "required": true },
+                    "doorphone" : { "type": "string" },
+                    "entrance"  : { "type": "string" },
+                    "flat"      : { "type": "string" },
+                    "floor"     : { "type": "string" },
+                    "latitude"  : { "type": "string" },
+                    "longitude" : { "type": "string" }
+                  }
+                },
+                "promoCode"  : { "type": "number" },
+                "basketList": {
+                  "type": "object",
+                  "properties": {
+                    "companyId": {
+                      "type"       : "object",
+                      "properties" : {
+                        "productId": {
+                          "type"       : "object",
+                          "properties" : {
+                            "uniqId": {
+                              "type"       : "object",
+                              "properties" : {
+                                "comment"      : { "type": "string", "required": true },
+                                "count"        : { "type": "string", "required": true },
+                                "variantsList" : {
+                                  "type"  : "array",
+                                  "items" : {
+                                    "attributeGroupId" : {
+                                      "type"  : "array",
+                                      "items" : {
+                                        "type" : "string"
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        ],
+        "responses" : { "200": { "description" : "Successfully response object" }}
+      }
+    },
+    "/api/order/OrderRate": {
+      "post": {
+        "tags"       : ["Order"],
+        "consumes"   : "application/json",
+        "parameters" : [
+          { "$ref": "#/parameters/Authorization" },
+          {
+            "in"     : "body",
+            "name"   : "Body",
+            "schema" : {
+              "type"       : "object",
+              "required"   : true,
+              "properties" : {
+                "orderId"   : { "type": "string", "required": true },
+                "rating"    : { "type": "number", "required": true },
+                "companyId" : { "type": "string", "required": true },
+                "feedback"  : { "type": "string" }
+              }
+            }
+          }
+        ],
+        "responses" : { "200": { "description" : "Successfully response object" }}
+      }
+    },
+    "/api/order/List": {
+      "post": {
+        "tags"       : ["Order"],
+        "consumes"   : "application/json",
+        "parameters" : [
+          { "$ref": "#/parameters/Authorization" },
+          {
+            "in"     : "body",
+            "name"   : "Body",
+            "schema" : {
+              "type"       : "object",
+              "required"   : true,
+              "properties" : {
+                "statuses": {
+                  "type": "array",
+                  "required": true,
+                  "items": {
+                    "type": "number"
+                  }
+                }
+              }
+            }
+          }
+        ],
+        "responses" : { "200": { "description" : "Successfully response object" }}
+      }
+    },
+    "/api/order/CancelOrder": {
+      "put": {
+        "tags"       : ["Order"],
+        "consumes"   : "application/json",
+        "parameters" : [
+          { "$ref": "#/parameters/Authorization" },
+          {
+            "in"     : "body",
+            "name"   : "Body",
+            "schema" : {
+              "type"       : "object",
+              "required"   : true,
+              "properties" : {
+                "orderId"   : { "type": "string", "required": true },
+                "reason"  : { "type": "string" }
+              }
+            }
+          }
+        ],
+        "responses" : { "200": { "description" : "Successfully response object" }}
+      }
+    },
+    "/api/order/ChangeStatusForDriver": {
+      "put": {
+        "tags"       : ["Order"],
+        "consumes"   : "application/json",
+        "produces"   : "application/json",
+        "parameters" : [
+          { "$ref": "#/parameters/Authorization" },
+          { "in":"query", "name":"orderId", "type":"string", "required": true },
+          { "in":"query", "name":"status", "type":"number", "required": true }
+        ],
+        "responses" : { "200": { "description" : "Successfully response object" }}
+      }
+    },
+    "/api/order/ChangeStatusForOperator": {
+      "put": {
+        "tags"       : ["Order"],
+        "consumes"   : "application/json",
+        "produces"   : "application/json",
+        "parameters" : [
+          { "$ref": "#/parameters/Authorization" },
+          { "in":"query", "name":"orderId", "type":"string", "required": true },
+          { "in":"query", "name":"status", "type":"number", "required": true }
+        ],
+        "responses" : { "200": { "description" : "Successfully response object" }}
+      }
+    },
+    "/api/order/ChangeStatusForDispatcher": {
+      "put": {
+        "tags"       : ["Order"],
+        "consumes"   : "application/json",
+        "produces"   : "application/json",
+        "parameters" : [
+          { "$ref": "#/parameters/Authorization" },
+          { "in":"query", "name":"orderId", "type":"string", "required": true },
+          { "in":"query", "name":"status", "type":"number", "required": true }
+        ],
+        "responses" : { "200": { "description" : "Successfully response object" }}
+      }
+    },
+    "/api/order/AttachDriver": {
+      "put": {
+        "tags"       : ["Order"],
+        "consumes"   : "application/json",
+        "produces"   : "application/json",
+        "parameters" : [
+          { "$ref": "#/parameters/Authorization" },
+          { "in":"query", "name":"orderId", "type":"string", "required": true },
+          { "in":"query", "name":"driverId", "type":"number", "required": true }
+        ],
+        "responses" : { "200": { "description" : "Successfully response object" }}
+      }
+    },
+    "/api/order/ChangeCompanyStatus": {
+      "put": {
+        "tags"       : ["Order"],
+        "consumes"   : "application/json",
+        "produces"   : "application/json",
+        "parameters" : [
+          { "$ref": "#/parameters/Authorization" },
+          { "in":"query", "name":"orderId", "type":"string", "required": true },
+          { "in":"query", "name":"companyId", "type":"string", "required": true },
+          { "in":"query", "name":"status", "type":"number", "required": true }
+        ],
+        "responses" : { "200": { "description" : "Successfully response object" }}
+      }
+    },
+    "/api/order/OrderHistory": {
+      "get": {
+        "tags"       : ["Order"],
+        "consumes"   : "application/json",
+        "parameters" : [
+          { "$ref": "#/parameters/Authorization" }
+        ],
+        "responses" : { "200": { "description" : "Successfully response object" }}
+      }
+    },
+    "/api/order/OrderDetails/{uniqueId}": {
+      "get": {
+        "tags"       : ["Order"],
+        "consumes"   : "application/json",
+        "parameters" : [
+          { "in":"path", "name":"uniqueId", "type":"string", "required": true }
+        ],
+        "responses" : { "200": { "description" : "Successfully response object" }}
+      }
+    },
+    "/api/order/OngoingList": {
+      "get": {
+        "tags"       : ["Order"],
+        "consumes"   : "application/json",
+        "parameters" : [
+          { "$ref": "#/parameters/Authorization" }
+        ],
+        "responses" : { "200": { "description" : "Successfully response object" }}
+      }
+    },
+    "/api/order/OngoingDetails/{orderId}": {
+      "get": {
+        "tags"       : ["Order"],
+        "consumes"   : "application/json",
+        "parameters" : [
+          { "$ref": "#/parameters/Authorization" },          
+          { "in":"path", "name":"orderId", "type":"string", "required": true }
+        ],
+        "responses" : { "200": { "description" : "Successfully response object" }}
+      }
+    },
+    "/api/order/ChatList":{
+      "post": {
+        "tags"       : ["Order"],
+        "summary"    :"Get list for chat for Operator",
+				"description":"Functionality for Operator to get list for chat.",
+        "consumes"   : "application/json",
+        "produces"   : "application/json",
+        "parameters" : [
+          { "$ref": "#/parameters/Authorization" },
+          { "$ref": "#/parameters/Language" },
+          {
+						"in":"body",
+						"name":"Operator conversation chat list",
+						"description":"Operator conversation chat list body",
+						"required":"true",
+						"schema": {
+							"type":"object",
+							"properties": {
+								"name": {
+									"type":"string"
+                },
+                "address": {
+									"type":"string"
+                },							
+                "phone": {
+									"type":"string"
+                },
+                "uniqueId": {
+									"type":"string"
+                },
+                "skip": {
+									"type":"number"
+								},
+								"limit": {
+									"type":"number"
+								}
+							}
+						}
+					}
+        ],
+        "responses" : { "200": { "description" : "Successfully response object" }}
+      }
+    },
+
+    "/api/Settings/All": {
+      "get": {
+        "tags"       : ["Settings"],
+        "consumes"   : "application/json",
+        "parameters" : [
+          { "$ref": "#/parameters/Authorization" }
+        ],
+        "responses" : { "200": { "description" : "Successfully response object" }}
+      }
+    },
+    "/api/Settings/GetRegion": {
+      "get": {
+        "tags"       : ["Settings"],
+        "consumes"   : "application/json",
+        "parameters" : [
+          { "in":"query", "name":"latitude", "type":"number", "required": true },
+          { "in":"query", "name":"longitude", "type":"number", "required": true }
+        ],
+        "responses" : { "200": { "description" : "Successfully response object" }}
+      }
+    },
+    "/api/Settings/ForUser": {
+      "get": {
+        "tags"       : ["Settings"],
+        "consumes"   : "application/json",
+        "parameters" : [
+          { "$ref": "#/parameters/Authorization" }
+        ],
+        "responses" : { "200": { "description" : "Successfully response object" }}
+      }
+    },
+    "/api/Settings/StatusMinutes": {
+      "get": {
+        "tags"       : ["Settings"],
+        "consumes"   : "application/json",
+        "parameters" : [
+          { "$ref": "#/parameters/Authorization" }
+        ],
+        "responses" : { "200": { "description" : "Successfully response object" }}
+      }
+    },
+    "/api/Settings/Edit": {
+      "put": {
+        "tags"       : ["Settings"],
+        "consumes"   : "application/json",
+        "parameters" : [
+          { "$ref": "#/parameters/Authorization" },
+          {
+            "in"     : "body",
+            "name"   : "Body",
+            "schema" : {
+              "type"       : "array",
+              "required"   : true,
+              "items": {
+                "type": "object",
+                "required": true,
+                "properties" : {
+                  "status"   : { "type": "number", "required": true },
+                  "minutes"  : { "type": "number", "required": true }
+                }
+              }
+            }
+          }
+        ],
+        "responses" : { "200": { "description" : "Successfully response object" }}
+      }
+    },
+
+    "/api/Support/NewMessage": {
+      "post": {
+        "tags"       : ["Support"],
+        "consumes"   : "application/json",
+        "parameters" : [
+        ],
+        "responses" : { "200": { "description" : "Successfully response object" }}
+      }
+    },
+
+    "/api/Balance/GetBalance": {
+      "get": {
+        "tags"       : ["Balance"],
+        "consumes"   : "application/json",
+        "parameters" : [
+          { "$ref": "#/parameters/Authorization" }
+        ],
+        "responses" : { "200": { "description" : "Successfully response object" }}
+      }
+    },
+
+    "/api/conversation/Badge": {
+      "get": {
+        "tags"       : ["Conversation"],
+        "summary"    : "Message badge",
+				"description": "Functionality for all to get message badge.",
+        "consumes"   : "application/json",
+        "parameters" : [
+          { "$ref": "#/parameters/Authorization" }
+        ],
+        "responses" : { "200": { "description" : "Successfully response object" }}
+      }
+    },
+    "/api/conversation/UserMessage": {
+      "post": {
+        "tags"       : ["Conversation"],
+        "summary"    :"Send message for user",
+				"description":"Functionality for user to send message, one of imagePath, audioPath or text is required. If message is for order chat, orderId is being sent.",
+        "consumes"   : "application/json",
+        "produces"   : "application/json",
+        "parameters" : [
+          { "$ref": "#/parameters/Authorization" },
+          { "in": "formData", "name": "imagePath", "type": "file", "required": false },
+          { "in": "formData", "name": "audioPath", "type": "file", "required": false },
+          { "in": "formData", "name": "text", "type":"string", "required": false },
+          { "in": "formData", "name": "orderId", "type":"string", "required": false }
+        ],
+        "responses" : { "200": { "description" : "Successfully response object" }}
+      }
+    },
+    "/api/conversation/UserList": {
+      "post": {
+        "tags"       : ["Conversation"],
+        "summary"    :"Get message list for user",
+				"description":"Functionality for user to get general or order message list.",
+        "consumes"   : "application/json",
+        "produces"   : "application/json",
+        "parameters" : [
+          { "$ref": "#/parameters/Authorization" },
+          { "$ref": "#/parameters/Language" },
+          {
+						"in":"body",
+						"name":"User message list",
+						"description":"User message list body, if order list is being got, order Id must be sent",
+						"required":"true",
+						"schema": {
+							"type":"object",
+							"properties": {
+								"orderId": {
+									"type":"string"
+                },							
+                "skip": {
+									"type":"number"
+								},
+								"limit": {
+									"type":"number"
+								}
+							}
+						}
+					}
+        ],
+        "responses" : { "200": { "description" : "Successfully response object" }}
+      }
+    },
+    "/api/conversation/AdminList": {
+      "post": {
+        "tags"       : ["Conversation"],
+        "summary"    :"Get conversation list for Admin",
+				"description":"Functionality for Admin to get conversation list.",
+        "consumes"   : "application/json",
+        "produces"   : "application/json",
+        "parameters" : [
+          { "$ref": "#/parameters/Authorization" },
+          { "$ref": "#/parameters/Language" },
+          {
+						"in":"body",
+						"name":"Admin conversation list",
+						"description":"Admin conversation list body",
+						"required":"true",
+						"schema": {
+							"type":"object",
+							"properties": {
+								"search": {
+									"type":"string"
+                },							
+                "skip": {
+									"type":"number"
+								},
+								"limit": {
+									"type":"number"
+								}
+							}
+						}
+					}
+        ],
+        "responses" : { "200": { "description" : "Successfully response object" }}
+      }
+    },
+    "/api/conversation/message/AdminList": {
+      "post": {
+        "tags"       : ["Conversation"],
+        "summary"    :"Get message list for Admin",
+				"description":"Functionality for Admin to get message list.",
+        "consumes"   : "application/json",
+        "produces"   : "application/json",
+        "parameters" : [
+          { "$ref": "#/parameters/Authorization" },
+          { "$ref": "#/parameters/Language" },
+          {
+						"in":"body",
+						"name":"Admin message list",
+						"description":"Admin message list body",
+						"required":"true",
+						"schema": {
+							"type":"object",
+							"properties": {
+								"conversationId": {
+									"type":"string"
+                },							
+                "skip": {
+									"type":"number"
+								},
+								"limit": {
+									"type":"number"
+								}
+							}
+						}
+					}
+        ],
+        "responses" : { "200": { "description" : "Successfully response object" }}
+      }
+    },
+    "/api/conversation/message/AdminMessage": {
+      "post": {
+        "tags"       : ["Conversation"],
+        "summary"    :"Send message for admin",
+				"description":"Functionality for admin to send message, one of imagePath, audioPath or text is required.",
+        "consumes"   : "application/json",
+        "produces"   : "application/json",
+        "parameters" : [
+          { "$ref": "#/parameters/Authorization" },
+          { "in": "formData", "name": "imagePath", "type": "file", "required": false },
+          { "in": "formData", "name": "audioPath", "type": "file", "required": false },
+          { "in": "formData", "name": "text", "type":"string", "required": false },
+          { "in": "formData", "name": "conversationId", "type":"string", "required": true }
+        ],
+        "responses" : { "200": { "description" : "Successfully response object" }}
+      }
+    },
+    "/api/conversation/OperatorList": {
+      "post": {
+        "tags"       : ["Conversation"],
+        "summary"    :"Get conversation list for Operator",
+				"description":"Functionality for Operator to get general or order conversation list.",
+        "consumes"   : "application/json",
+        "produces"   : "application/json",
+        "parameters" : [
+          { "$ref": "#/parameters/Authorization" },
+          { "$ref": "#/parameters/Language" },
+          {
+						"in":"body",
+						"name":"Operator conversation list",
+						"description":"Operator conversation list body",
+						"required":"true",
+						"schema": {
+							"type":"object",
+							"properties": {
+								"name": {
+									"type":"string"
+                },
+                "address": {
+									"type":"string"
+                },							
+                "phone": {
+									"type":"string"
+                },
+                "uniqueId": {
+									"type":"string"
+                },
+                "skip": {
+									"type":"number"
+								},
+								"limit": {
+									"type":"number"
+								}
+							}
+						}
+					}
+        ],
+        "responses" : { "200": { "description" : "Successfully response object" }}
+      }
+    },
+    "/api/conversation/message/OperatorList": {
+      "post": {
+        "tags"       : ["Conversation"],
+        "summary"    :"Get message list for Operator",
+				"description":"Functionality for Operator to get message list.",
+        "consumes"   : "application/json",
+        "produces"   : "application/json",
+        "parameters" : [
+          { "$ref": "#/parameters/Authorization" },
+          { "$ref": "#/parameters/Language" },
+          {
+						"in":"body",
+						"name":"Operator message list",
+						"description":"Operator message list body",
+						"required":"true",
+						"schema": {
+							"type":"object",
+							"properties": {
+								"orderId": {
+									"type":"string"
+                },							
+                "skip": {
+									"type":"number"
+								},
+								"limit": {
+									"type":"number"
+								}
+							}
+						}
+					}
+        ],
+        "responses" : { "200": { "description" : "Successfully response object" }}
+      }
+    },
+    "/api/conversation/message/OperatorMessage": {
+      "post": {
+        "tags"       : ["Conversation"],
+        "summary"    :"Send message for operator",
+				"description":"Functionality for operator to send message, one of imagePath, audioPath or text is required.",
+        "consumes"   : "application/json",
+        "produces"   : "application/json",
+        "parameters" : [
+          { "$ref": "#/parameters/Authorization" },
+          { "in": "formData", "name": "imagePath", "type": "file", "required": false },
+          { "in": "formData", "name": "audioPath", "type": "file", "required": false },
+          { "in": "formData", "name": "text", "type":"string", "required": false },
+          { "in": "formData", "name": "orderId", "type":"string", "required": true }
+        ],
+        "responses" : { "200": { "description" : "Successfully response object" }}
+      }
+    }
+
+  },
+
+
+  "parameters": {
+    "Authorization": {
+      "name" : "Authorization",
+      "in"   : "header",
+      "type" : "string"
+    },
+
+    "Translates": {
+      "type"       : "object",
+      "properties" : {
+        "hy": {
+          "type" : "string"
+        },
+        "ru": {
+          "type" : "string"
+        },
+        "en": {
+          "type" : "string"
+        }
+      }
+    },
+
+    "Language": {
+      "name" : "languagecode",
+      "in"   : "header",
+      "type" : "string",
+      "required": "true"
+    }
+
+  }
+}
